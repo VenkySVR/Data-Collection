@@ -6,10 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data collection IIITDWD</title>
     <!-- stylesheet -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
 </head>
 <body>
-    <div class="bg">
+    <div class="bg" id="hide">
+
+        <div id="container">
+
+
+            <video id="gum" playsinline autoplay muted></video>
+            <video id="recorded" playsinline loop></video>
+        
+            <div>
+                <button class="button-styling" id="start">Start camera</button>
+                <button class="button-styling" id="record" disabled>Start Recording</button>
+                <button class="button-styling" id="play" disabled>Play</button>
+                <button class="button-styling" id="download" disabled>Submit</button>
+            </div>
+        
+            <div>
+                Recording format: <select id="codecPreferences" disabled></select>
+            </div>
+            <div>
+                <h4>Media Stream Constraints options</h4>
+                <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+            </div>
+        
+            <div>
+                <span id="errorMsg"></span>
+            </div>
+        
+            <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record"
+               title="View source for this page on GitHub" id="viewSource">View source on GitHub</a> -->
+        
+        </div>
+        
         <div class="container">
             <h1 class="heading">Data collection</h1>
             <form action="/" method="POST" autocomplete="off">
@@ -43,10 +74,22 @@
                     <input type="number" name="speakerid" class="card-input" min=1 pattern=" 0+\.[0-9]*[1-9][0-9]*$" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Enter your ID here..."> 
                 </div>
                 <div class="botton-div" style="text-align:center">
-                    <input class="button-styling" type="submit" value="Submit">
+                    <input id="submit" class="button-styling" type="submit" value="Submit">
+                    <!-- <button class="button-styling" id="download" disabled type="submit">Download</button> -->
                 </div>
             </form>
         </div>
     </div>
+
+
+
+    
+
+
+<!-- include adapter for srcObject shim -->
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/main.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
 </body>
 </html>
