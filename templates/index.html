@@ -21,7 +21,7 @@
                 <button class="button-styling" id="start">Start camera</button>
                 <button class="button-styling" id="record" disabled>Start Recording</button>
                 <button class="button-styling" id="play" disabled>Play</button>
-                <button class="button-styling" id="download" disabled>Submit</button>
+                <!-- <button class="button-styling" id="download" disabled>Submit</button> -->
             </div>
         
             <div>
@@ -43,7 +43,7 @@
         
         <div class="container">
             <h1 class="heading">Data collection</h1>
-            <form action="/" method="POST" autocomplete="off">
+            <form id='meta-data' autocomplete="off">
                 <h1 class="card-input-heading">Language Id</h1>
                 <div class="card-input-box">
                     <select class="form-input" name="languageid" aria-label="Default select example" required>
@@ -75,7 +75,6 @@
                 </div>
                 <div class="botton-div" style="text-align:center">
                     <input id="submit" class="button-styling" type="submit" value="Submit">
-                    <!-- <button class="button-styling" id="download" disabled type="submit">Download</button> -->
                 </div>
             </form>
         </div>

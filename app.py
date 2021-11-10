@@ -14,9 +14,9 @@ from pydub import AudioSegment
 from datetime import datetime
 
 def name_gen(languageid,gender):
-    basename = languageid +"_"+ gender + "_"
+    basename = languageid +"_"+ gender
     suffix = datetime.now().strftime("%y%m%d_%H%M%S")
-    filename = "_".join([basename, suffix]) # e.g. 'mylogfile_120508_171442'
+    filename = "_".join([basename, suffix]) # e.g. 'hindi_male_120508_171442'
     return filename + ".webm"
 
 
@@ -51,19 +51,14 @@ def home():
         agegroup = request.form['agegroup']
         speakerid = request.form['speakerid']
         video_name = name_gen(languageid,gender)
+        recFile = request.files['file']
         recFile.save(os.path.join(app.config['UPLOAD_FOLDER'], video_name))
+        print(languageid,gender,agegroup,speakerid,video_name)
         data = Form(languageid=languageid,gender=gender,agegroup=agegroup,speakerid=speakerid , videoname= video_name )
         db.session.add(data)
         db.session.commit()
+        return redirect(url_for('home'))
     return render_template('index.html')
-
-@app.route("/send",methods=['POST'])
-def send():
-    if request.method=='POST':
-        recFile = request.files['file']
-        # to_audio(filename)
-    return redirect(url_for('home'))
-
 
 @app.route("/details")
 def details():

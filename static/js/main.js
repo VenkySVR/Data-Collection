@@ -44,33 +44,53 @@ playButton.addEventListener('click', () => {
   recordedVideo.play();
 });
 
-const downloadButton = document.querySelector('button#download');
-downloadButton.addEventListener('click', () => {
+// const downloadButton = document.querySelector('button#download');
+// downloadButton.addEventListener('click', () => {
+//   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
+//   sendData(blob);
+//   const url = window.URL.createObjectURL(blob);
+//   const a = document.createElement('a');
+//   a.style.display = 'none';
+//   a.href = url;
+//   a.download = 'test.webm';
+//   document.body.appendChild(a);
+//   a.click();
+//   setTimeout(() => {
+//     document.body.removeChild(a);
+//     window.URL.revokeObjectURL(url);
+//   }, 100);
+// });
+
+const form = document.getElementById( "meta-data" );
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
-  const nameoffile = 'temp.webm'
-  sendData(blob,nameoffile);
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.style.display = 'none';
-  a.href = url;
-  a.download = 'test.webm';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }, 100);
+  console.log("form from html",form);
+  console.log("blob video",blob);
+  sendData(blob);
+  // const url = window.URL.createObjectURL(blob);
+  // const a = document.createElement('a');
+  // a.style.display = 'none';
+  // a.href = url;
+  // a.download = 'test.webm';
+  // document.body.appendChild(a);
+  // a.click();
+  // setTimeout(() => {
+  //   document.body.removeChild(a);
+  //   window.URL.revokeObjectURL(url);
+  // }, 100);
 });
 
-
-function sendData(blob,nameoffile) {
-    var form = new FormData();
-    form.append('file', blob);
-    form.append('fname', 'test.webm');
+function sendData(blob) {
+    var fd = new FormData(form);
+    fd.append('file', blob);
+    fd.append('fname', 'test.webm');
+    console.log(fd)
     $.ajax({
         type: 'POST',
-        url:'/send',
-        data: form,
+        url:'/',
+        data: fd,
         cache: false,
         processData: false,
         contentType: false,
