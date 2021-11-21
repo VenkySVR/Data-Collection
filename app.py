@@ -9,19 +9,19 @@ app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///form.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 db = SQLAlchemy(app)
 
-import moviepy.editor as mp
-from pydub import AudioSegment
+# import moviepy.editor as mp
+# from pydub import AudioSegment
 from datetime import datetime
 
 def name_gen(languageid,gender):
     basename = languageid +"_"+ gender
     suffix = datetime.now().strftime("%y%m%d_%H%M%S")
     filename = "_".join([basename, suffix]) # e.g. 'hindi_male_120508_171442'
-    return filename + ".webm"
+    return filename
 
 
 def to_audio(videofile):
-    video_path = VIDEO_FOLDER + videofile + '.webm'
+    video_path = VIDEO_FOLDER + videofile + '.mp4'
     audio_path = AUDIO_FOLDER + videofile + '.wav'
     video_clip = mp.VideoFileClip(video_path)
     audio_clip = video_clip.audio
@@ -52,8 +52,9 @@ def home():
         speakerid = request.form['speakerid']
         video_name = name_gen(languageid,gender)
         recFile = request.files['file']
-        recFile.save(os.path.join(app.config['UPLOAD_FOLDER'], video_name))
-        print(languageid,gender,agegroup,speakerid,video_name)
+        recFile.save(os.path.join(app.config['UPLOAD_FOLDER'], video_name + ".mp4"))
+        # to_audio(video_name)
+        # print(languageid,gender,agegroup,speakerid,video_name)
         data = Form(languageid=languageid,gender=gender,agegroup=agegroup,speakerid=speakerid , videoname= video_name )
         db.session.add(data)
         db.session.commit()
@@ -69,4 +70,4 @@ def details():
 
 if __name__=="__main__":
     db.create_all()
-    app.run(debug=False,port=8113)    
+    app.run(debug=False,port=8000)    

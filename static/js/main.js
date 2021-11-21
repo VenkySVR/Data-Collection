@@ -65,7 +65,7 @@ const form = document.getElementById( "meta-data" );
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const blob = new Blob(recordedBlobs, {type: 'video/webm'});
+  const blob = new Blob(recordedBlobs, {type: 'video/mp4'});
   console.log("form from html",form);
   console.log("blob video",blob);
   sendData(blob);
@@ -180,17 +180,26 @@ async function init(constraints) {
   }
 }
 
-document.querySelector('button#start').addEventListener('click', async () => {
-  document.querySelector('button#start').disabled = true;
-  const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
+
+window.onload = async () => {
   const constraints = {
-    audio: {
-      echoCancellation: {exact: hasEchoCancellation}
-    },
+    audio: true,
     video: {
       width: 1280, height: 720
     }
   };
   console.log('Using media constraints:', constraints);
   await init(constraints);
-});
+};
+
+// document.querySelector('button#start').addEventListener('click', async () => {
+//   document.querySelector('button#start').disabled = true;
+//   const constraints = {
+//     audio: true,
+//     video: {
+//       width: 1280, height: 720
+//     }
+//   };
+//   console.log('Using media constraints:', constraints);
+//   await init(constraints);
+// });

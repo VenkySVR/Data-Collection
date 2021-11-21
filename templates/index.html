@@ -12,13 +12,14 @@
     <div class="bg" id="hide">
 
         <div id="container">
-
+            <p>Text Area</p> 
 
             <video id="gum" playsinline autoplay muted></video>
             <video id="recorded" playsinline loop></video>
-        
+
+                   
             <div>
-                <button class="button-styling" id="start">Start camera</button>
+                <!-- <button class="button-styling" id="start">Start camera</button> -->
                 <button class="button-styling" id="record" disabled>Start Recording</button>
                 <button class="button-styling" id="play" disabled>Play</button>
                 <!-- <button class="button-styling" id="download" disabled>Submit</button> -->
@@ -27,10 +28,10 @@
             <div>
                 Recording format: <select id="codecPreferences" disabled></select>
             </div>
-            <div>
+            <!-- <div>
                 <h4>Media Stream Constraints options</h4>
                 <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
-            </div>
+            </div> -->
         
             <div>
                 <span id="errorMsg"></span>
@@ -43,7 +44,7 @@
         
         <div class="container">
             <h1 class="heading">Data collection</h1>
-            <form id='meta-data' autocomplete="off">
+            <form action="/" id='meta-data' autocomplete="off">
                 <h1 class="card-input-heading">Language Id</h1>
                 <div class="card-input-box">
                     <select class="form-input" name="languageid" aria-label="Default select example" required>
