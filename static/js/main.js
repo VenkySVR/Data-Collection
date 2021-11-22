@@ -65,7 +65,7 @@ const form = document.getElementById( "meta-data" );
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const blob = new Blob(recordedBlobs, {type: 'video/mp4'});
+  const blob = new Blob(recordedBlobs, {type: 'video/ogg'});
   console.log("form from html",form);
   console.log("blob video",blob);
   sendData(blob);
@@ -85,7 +85,7 @@ form.addEventListener("submit", (event) => {
 function sendData(blob) {
     var fd = new FormData(form);
     fd.append('file', blob);
-    fd.append('fname', 'test.webm');
+    fd.append('fname', 'test.ogv');
     console.log(fd)
     $.ajax({
         type: 'POST',
@@ -112,12 +112,12 @@ function handleDataAvailable(event) {
 
 function getSupportedMimeTypes() {
   const possibleTypes = [
+    'video/webm;codecs=h264,opus',
     'video/webm;codecs=vp9,opus',
     'video/webm;codecs=vp8,opus',
-    'video/webm;codecs=h264,opus',
-    'video/mp4;codecs=h264,aac',
   ];
   return possibleTypes.filter(mimeType => {
+    console.log(mimeType, "----",MediaRecorder.isTypeSupported(mimeType))
     return MediaRecorder.isTypeSupported(mimeType);
   });
 }
@@ -125,6 +125,7 @@ function getSupportedMimeTypes() {
 function startRecording() {
   recordedBlobs = [];
   const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
+  console.log("mimeType",mimeType);
   const options = {mimeType};
 
   try {
